@@ -8,20 +8,26 @@ function MedicineCard({ medicine, onClick }) {
   const route = data.route?.[0] || "Not available";
 
   return (
-    <div onClick={onClick}>
+    <div className="medicine-card" onClick={onClick}>
       <h2>{brandName}</h2>
+
       <p>
         <strong>Generic:</strong> {genericName}
       </p>
+
       <p>
         <strong>Manufacturer:</strong> {manufacturer}
       </p>
+
       <p>
         <strong>Product Type:</strong> {productType}
       </p>
+
       <p>
         <strong>Route:</strong> {route}
       </p>
+
+      <span>View details →</span>
     </div>
   );
 }
