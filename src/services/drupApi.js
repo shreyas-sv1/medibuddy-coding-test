@@ -1,17 +1,24 @@
-const BASE_URL = 
-"https://api.fda.gov/drug/label.json";
+const BASE_URL = "https://api.fda.gov/drug/label.json";
 
-export async function 
-searchMedicnes(query ,signal) {
-        const url=`${BASE_URL}?
-    search=openfda.brand_name:${encodeURIComponent(query)}` + '&limit=20';
-    const response =await fetch(url,{signal});
-    if(response.status === 404){
-        return [];
-    }
-    if(!response.ok){
-        throw new Error("Failed to fetch");
-    }
-    const data =await response.json();
-    return data.result || [];
+export async function searchMedicines(query, signal) {
+  const params = new URLSearchParams({
+    search: `openfda.brand_name:${query.trim()}`,
+    limit: "20",
+  });
+
+  const response = await fetch(`${BASE_URL}?${params.toString()}`, {
+    signal,
+  });
+
+  if (response.status === 404) {
+    return [];
+  }
+
+  if (!response.ok) {
+    throw new Error(`FDA API error: ${response.status}`);
+  }
+
+  const data = await response.json();
+
+  return data.results || [];
 }
