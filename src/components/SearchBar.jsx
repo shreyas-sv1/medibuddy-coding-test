@@ -1,9 +1,10 @@
 import { useState } from "react";
-
-function SearchBar() {
+function SearchBar({onSearch}) {
     const[query, setQuery]=useState("");
     function handleSearch(){
-        console.log("searching for :",query);
+        if(!query.trim())
+            return;
+        onSearch(query.trim());
     }
     return (
         <div>
