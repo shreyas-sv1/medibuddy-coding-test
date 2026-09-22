@@ -1,29 +1,35 @@
-import { useState } from 'react'
-import SearchBar from './components/SearchBar';
-import { searchMedicnes } from './services/drupApi';
+import { useState } from "react";
+import SearchBar from "./components/SearchBar";
+import { searchMedicines } from "./services/drupApi";
 
 function App() {
-  const[medicines, setMedicines]=useState([]);
+  const [medicines, setMedicines] = useState([]);
+
   async function handleSearch(query) {
-    try{
-      const results =await 
-      searchMedicnes(query);
-      console.log("FDA Results",results);
+    try {
+      const results = await searchMedicines(query);
+
+      console.log("FDA Results:", results);
+
       setMedicines(results);
-    }
-    catch (error) {
+    } catch (error) {
       console.error(error);
     }
   }
+
   return (
     <main>
-      <h1>Medice Search</h1>
+      <h1>Medicine Search</h1>
       <p>Search for medicine by brand name</p>
+
       <SearchBar onSearch={handleSearch} />
+
       <div>
-        {medicines.map((medicine, index)=>(
+        {medicines.map((medicine, index) => (
           <div key={index}>
-            <pre>{JSON.stringify(medicine.openfda,null,2)}</pre>
+            <pre>
+              {JSON.stringify(medicine.openfda, null, 2)}
+            </pre>
           </div>
         ))}
       </div>
@@ -31,4 +37,4 @@ function App() {
   );
 }
 
-export default App
+export default App;
