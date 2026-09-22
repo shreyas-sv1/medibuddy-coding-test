@@ -1,5 +1,6 @@
 import { useState } from "react";
 import SearchBar from "./components/SearchBar";
+import MedicineCard from "./components/MedicineCard";
 import { searchMedicines } from "./services/drupApi";
 
 function App() {
@@ -8,9 +9,6 @@ function App() {
   async function handleSearch(query) {
     try {
       const results = await searchMedicines(query);
-
-      console.log("FDA Results:", results);
-
       setMedicines(results);
     } catch (error) {
       console.error(error);
@@ -26,15 +24,18 @@ function App() {
 
       <div>
         {medicines.map((medicine, index) => (
-          <div key={index}>
-            <pre>
-              {JSON.stringify(medicine.openfda, null, 2)}
-            </pre>
-          </div>
+          <MedicineCard
+            key={index}
+            medicine={medicine}
+            onClick={() => console.log(medicine)}
+          />
         ))}
       </div>
     </main>
   );
+}
+
+export default App;  );
 }
 
 export default App;
